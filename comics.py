@@ -55,7 +55,7 @@ def main():
     load_dotenv()
     tg_token = os.getenv('TG_TOKEN')
     chat_id = os.getenv('TG_CHAT_ID')
-    folder_path = './images/'
+    folder_path = Path("./images/")
     try:
         Path(folder_path).mkdir(parents=True, exist_ok=True)
 
@@ -67,7 +67,7 @@ def main():
         comment = get_comment(url)
 
         filename = os.listdir(folder_path)[0]
-        tg_path = f'{folder_path}{filename}'
+        tg_path = Path(f'{folder_path}/{filename}')
         send_message_tg_bot(tg_token, chat_id, tg_path, comment)
 
     finally:
