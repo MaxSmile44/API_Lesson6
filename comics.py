@@ -56,20 +56,22 @@ def main():
     tg_token = os.getenv('TG_TOKEN')
     chat_id = os.getenv('TG_CHAT_ID')
     folder_path = './images/'
-    Path(folder_path).mkdir(parents=True, exist_ok=True)
+    try:
+        Path(folder_path).mkdir(parents=True, exist_ok=True)
 
-    last_comic = get_last_comic_num()
-    random_comic = randint(0, last_comic)
-    url = f'https://xkcd.com/{random_comic}/info.0.json'
+        last_comic = get_last_comic_num()
+        random_comic = randint(0, last_comic)
+        url = f'https://xkcd.com/{random_comic}/info.0.json'
 
-    get_comic(url, folder_path)
-    comment = get_comment(url)
+        get_comic(url, folder_path)
+        comment = get_comment(url)
 
-    filename = os.listdir(folder_path)[0]
-    tg_path = f'{folder_path}{filename}'
-    send_message_tg_bot(tg_token, chat_id, tg_path, comment)
+        filename = os.listdir(folder_path)[0]
+        tg_path = f'{folder_path}{filename}'
+        send_message_tg_bot(tg_token, chat_id, tg_path, comment)
 
-    delete_comic(folder_path)
+    finally:
+        delete_comic(folder_path)
 
 
 if __name__ == '__main__':
