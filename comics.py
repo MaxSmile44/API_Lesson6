@@ -19,7 +19,6 @@ def save_file(url, path, filename):
     """
     response = requests.get(url)
     response.raise_for_status()
-    Path(path).mkdir(parents=True, exist_ok=True)
     with open(f'{path}/{filename}', 'wb') as file:
         file.write(response.content)
 
@@ -66,7 +65,6 @@ def delete_comic(path):
 
     """
     shutil.rmtree(path)
-    os.mkdir(path)
 
 
 def tg_bot_send(tg_token, chat_id, path, comment):
@@ -90,6 +88,7 @@ def main():
     tg_token = os.getenv('TG_TOKEN')
     chat_id = os.getenv('TG_CHAT_ID')
     folder_path = './images/'
+    Path(folder_path).mkdir(parents=True, exist_ok=True)
 
     last_comic = get_last_comic_num()
     random_comic = randint(0, last_comic)
