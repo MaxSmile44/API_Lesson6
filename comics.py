@@ -33,8 +33,9 @@ def get_comic(url, path):
     """
     response = requests.get(url)
     response.raise_for_status()
-    img = response.json()['img']
-    num = response.json()['num']
+    comics = response.json()
+    img = comics['img']
+    num = comics['num']
     save_file(img, path, f'comic_{num}.png')
 
 
