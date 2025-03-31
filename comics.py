@@ -44,16 +44,7 @@ def delete_comic(path):
     shutil.rmtree(path)
 
 
-def tg_bot_send(tg_token, chat_id, path, comment):
-    """Send image and message to tg_bot
-
-    Args:
-        tg_token (str): telegram token
-        chat_id (str): chat_id
-        path (str): path of directory with comic
-        comment (str): comment of comic
-
-    """
+def send_message_tg_bot(tg_token, chat_id, path, comment):
     bot = telegram.Bot(token=tg_token)
     with open(path, "rb") as photo:
         bot.send_photo(chat_id=chat_id, photo=photo)
@@ -76,7 +67,7 @@ def main():
 
     filename = os.listdir(folder_path)[0]
     tg_path = f'{folder_path}{filename}'
-    tg_bot_send(tg_token, chat_id, tg_path, comment)
+    send_message_tg_bot(tg_token, chat_id, tg_path, comment)
 
     delete_comic(folder_path)
 
