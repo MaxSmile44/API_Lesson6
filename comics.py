@@ -9,14 +9,6 @@ from random import randint
 
 
 def save_file(url, path, filename):
-    """Save file to directory
-
-    Args:
-        url (str): url of file
-        path (str): path of directory to save file
-        filename (str): name of file
-
-    """
     response = requests.get(url)
     response.raise_for_status()
     with open(f'{path}/{filename}', 'wb') as file:
@@ -45,22 +37,10 @@ def get_last_comic_num():
 
 
 def get_comment(url):
-    """Get comment of comic
-
-    Args:
-        url (str): url of comic image
-
-    """
     return requests.get(url).json()['alt']
 
 
 def delete_comic(path):
-    """Deleting all the contents of the folder
-
-    Args:
-        path (str): path of directory
-
-    """
     shutil.rmtree(path)
 
 
