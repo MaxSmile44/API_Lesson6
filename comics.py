@@ -41,9 +41,7 @@ def get_comic(url, path):
 
 def get_last_comic_num():
     """Find out how many comics on web page"""
-    response = requests.get('https://xkcd.com/info.0.json')
-    response.raise_for_status()
-    return response.json()['num']
+    return requests.get('https://xkcd.com/info.0.json').json()['num']
 
 
 def get_comment(url):
@@ -53,9 +51,7 @@ def get_comment(url):
         url (str): url of comic image
 
     """
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.json()['alt']
+    return requests.get(url).json()['alt']
 
 
 def delete_comic(path):
