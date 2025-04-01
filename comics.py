@@ -52,9 +52,13 @@ def send_message_tg_bot(tg_token, chat_id, path, comment):
 
 
 def main():
-    load_dotenv()
-    tg_token = os.getenv('TG_TOKEN')
-    chat_id = os.getenv('TG_CHAT_ID')
+    try:
+        load_dotenv()
+        tg_token = os.environ['TG_TOKEN']
+        chat_id = os.environ['TG_CHAT_ID']
+    except KeyError as error:
+        print(f'KeyError: {error}')
+        raise SystemExit
     folder_path = Path("./images/")
     try:
         Path(folder_path).mkdir(parents=True, exist_ok=True)
@@ -69,7 +73,8 @@ def main():
         filename = os.listdir(folder_path)[0]
         tg_path = Path(f'{folder_path}/{filename}')
         send_message_tg_bot(tg_token, chat_id, tg_path, comment)
-
+    except ValueError as error:
+        print(f'ValueError: {error}')
     finally:
         delete_comic(folder_path)
 
