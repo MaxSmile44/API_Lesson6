@@ -35,7 +35,9 @@ def download_comic_and_comment(url, path):
 
 def get_last_comic_num():
     """Find out how many comics on web page"""
-    return requests.get('https://xkcd.com/info.0.json').json()['num']
+    response = requests.get('https://xkcd.com/info.0.json')
+    response.raise_for_status()
+    return response.json()['num']
 
 
 def send_message_tg_bot(tg_token, chat_id, path, comment):
