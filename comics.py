@@ -15,8 +15,8 @@ def save_file(url, path, filename):
         file.write(response.content)
 
 
-def download_comic(url, path):
-    """Get url to comic image, number of comic and save to directory
+def download_comic_and_comment(url, path):
+    """Get url to comic image, number of comic, comment and save to directory
 
     Args:
         url (str): url of comic image
@@ -28,16 +28,14 @@ def download_comic(url, path):
     comics = response.json()
     img = comics['img']
     num = comics['num']
+    alt = comics['alt']
     save_file(img, path, f'comic_{num}.png')
+    return alt
 
 
 def get_last_comic_num():
     """Find out how many comics on web page"""
     return requests.get('https://xkcd.com/info.0.json').json()['num']
-
-
-def get_comment(url):
-    return requests.get(url).json()['alt']
 
 
 def delete_comic(path):
@@ -67,8 +65,7 @@ def main():
         random_comic = randint(0, last_comic)
         url = f'https://xkcd.com/{random_comic}/info.0.json'
 
-        download_comic(url, folder_path)
-        comment = get_comment(url)
+        comment = download_comic_and_comment(url, folder_path)
 
         filename = os.listdir(folder_path)[0]
         tg_path = Path(f'{folder_path}/{filename}')
