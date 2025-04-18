@@ -11,7 +11,7 @@ from random import randint
 def save_file(url, path, filename):
     response = requests.get(url)
     response.raise_for_status()
-    with open(f'{path}/{filename}', 'wb') as file:
+    with open(Path(f'{path}/{filename}'), 'wb') as file:
         file.write(response.content)
 
 
