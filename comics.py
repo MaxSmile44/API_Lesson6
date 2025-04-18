@@ -38,10 +38,6 @@ def get_last_comic_num():
     return requests.get('https://xkcd.com/info.0.json').json()['num']
 
 
-def delete_comic(path):
-    shutil.rmtree(path)
-
-
 def send_message_tg_bot(tg_token, chat_id, path, comment):
     bot = telegram.Bot(token=tg_token)
     with open(path, "rb") as photo:
@@ -73,7 +69,7 @@ def main():
     except ValueError as error:
         print(f'ValueError: {error}')
     finally:
-        delete_comic(folder_path)
+        shutil.rmtree(folder_path)
 
 
 if __name__ == '__main__':
